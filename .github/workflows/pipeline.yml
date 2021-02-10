@@ -41,6 +41,7 @@ jobs:
           checkstring: "OK"
           rollbackonhealthcheckfailed: true
   version_bumping:
+    needs: simple_deployment_pipeline
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
