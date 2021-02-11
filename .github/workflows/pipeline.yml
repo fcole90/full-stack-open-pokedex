@@ -29,7 +29,8 @@ jobs:
       #     command: npm run test:e2e
       #     start: npm run start-prod
       #     wait-on: http://localhost:5000
-      - name: deploy
+      - id: deploy
+        name: deploy
         if: ${{ github.event_name == 'push' && contains(join(github.event.commits.*.message, ' '), '#skip') == false }}
         uses: akhileshns/heroku-deploy@v3.10.9
         with:
@@ -40,6 +41,10 @@ jobs:
           healthcheck: "https://pokedex-app-fcole90.herokuapp.com/health"
           checkstring: "OK"
           rollbackonhealthcheckfailed: true
+      - name: steps_context
+        env:
+          MSG: ${{ steps }}
+        run: echo "$MSG"
       - name: deploy_outcome
         env:
           MSG: ${{ steps.deploy.outcome }}
