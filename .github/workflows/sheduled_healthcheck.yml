@@ -1,15 +1,7 @@
-# on:
-#   schedule:
-#   # * is a special character in YAML so you have to quote this string
-#   - cron:  '*/30 * * * *'
-
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches: [master]
-    types: [opened, synchronize]
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  - cron:  '*/30 * * * *'
 
 jobs:
   healthcheck:
