@@ -23,9 +23,9 @@ jobs:
         run: npm run test
       - name: build
         run: npm run build
-      - name: e2e tests
-        uses: cypress-io/github-action@v2
-        with:
+      # - name: e2e tests
+      #   uses: cypress-io/github-action@v2
+      #   with:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
@@ -40,6 +40,10 @@ jobs:
           healthcheck: "https://pokedex-app-fcole90.herokuapp.com/health"
           checkstring: "OK"
           rollbackonhealthcheckfailed: true
+      - name: deploy_outcome
+        env:
+          MSG: ${{ steps.deploy.outcome }}
+        run: echo "$MSG"
       - name: notify_slack_if_deploy_succeed
         uses: 8398a7/action-slack@v3
         with:
