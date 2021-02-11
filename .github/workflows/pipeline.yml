@@ -33,13 +33,31 @@ jobs:
         if: ${{ github.event_name == 'push' && contains(join(github.event.commits.*.message, ' '), '#skip') == false }}
         uses: akhileshns/heroku-deploy@v3.10.9
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "pokedex-app-fcole90"
-          heroku_email: "fabiocolella1990@gmail.com"
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
           remote_branch: master
           healthcheck: "https://pokedex-app-fcole90.herokuapp.com/health"
           checkstring: "OK"
           rollbackonhealthcheckfailed: true
+      - name: notify_slack_if_deploy_succeed
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ steps.deploy.outcome == 'success' }}
+        
+      - name: notify_slack_if_deploy_fails
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ failure() }}
+
   version_bumping:
     needs: simple_deployment_pipeline
     runs-on: ubuntu-18.04
@@ -51,16 +69,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: 'patch'
-      - name: commit messages
-        env:
-          MESSAGE: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$MESSAGE"
-      - name: contains_skip
-        env:
-          MESSAGE: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        run: echo "$MESSAGE"
-      - name: will_skip_this
-        env:
-          MESSAGE: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') == false }}
-        run: echo "$MESSAGE"
 
