@@ -30,7 +30,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: deploy
-        if: ${{ github.event_name == 'push' && contains(join(github.event.commits.*.message, ' '), '#skip') }}
+        if: ${{ github.event_name == 'push' && contains(join(github.event.commits.*.message, ' '), '#skip') == false }}
         uses: akhileshns/heroku-deploy@v3.10.9
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -53,6 +53,14 @@ jobs:
           DEFAULT_BUMP: 'patch'
       - name: commit messages
         env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
+          MESSAGE: ${{ toJson(github.event.commits.*.message) }}
+        run: echo "$MESSAGE"
+      - name: contains_skip
+        env:
+          MESSAGE: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
+        run: echo "$MESSAGE"
+      - name: will_skip_this
+        env:
+          MESSAGE: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') == false }}
+        run: echo "$MESSAGE"
 
