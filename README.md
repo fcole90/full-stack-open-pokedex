@@ -1,4 +1,4 @@
-![.github/workflows/pipeline.yml](https://github.com/fcole90/full-stack-open-pokedex/workflows/.github/workflows/pipeline.yml/badge.svg)
+![.github/workflows/pipeline.yml](https://github.com/fcole90/full-stack-open-pokedex/workflows/.github/workflows/pipeline.yml/badge.svg) ![.github/workflows/sheduled_healthcheck.yml](https://github.com/fcole90/full-stack-open-pokedex/workflows/.github/workflows/sheduled_healthcheck.yml/badge.svg?event=schedule)
 
 # Full Stack open CI/CD (Part 11)
 
