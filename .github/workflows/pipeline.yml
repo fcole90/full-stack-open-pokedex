@@ -43,7 +43,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       - name: steps_context
         env:
-          MSG: ${{ steps }}
+          MSG: ${{ toJson(steps) }}
         run: echo "$MSG"
       - name: deploy_outcome
         env:
