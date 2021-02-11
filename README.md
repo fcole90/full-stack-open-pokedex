@@ -1,3 +1,5 @@
+![.github/workflows/pipeline.yml](https://github.com/fcole90/full-stack-open-pokedex/workflows/.github/workflows/pipeline.yml/badge.svg)
+
 # Full Stack open CI/CD (Part 11)
 
 This repository is used for the [CI/CD module of the Full stack open course](https://fullstackopen.com/en/part11)
