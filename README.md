@@ -1,8 +1,8 @@
-# Full Stack open CI/CD
+# Full Stack open CI/CD (Part 11)
 
-This repository is used for the CI/CD module of the Full stack open course
+This repository is used for the [CI/CD module of the Full stack open course](https://fullstackopen.com/en/part11)
 
-Fork the repository to complete course exercises
+Own CI/CD repo (exx 11.21, 11.22) at https://github.com/fcole90/fullstack_open_2020_part11_own_CI
 
 ## Commands
 
